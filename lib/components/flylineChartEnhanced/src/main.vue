@@ -95,7 +95,8 @@
           :x="point.text.x"
           :y="point.text.y"
         >
-          {{ point.name }}
+          {{ point.label }}
+          <tspan :x="point.text.x" :y="point.text.y + 15" :fill="point.text.color_speed">{{ point.speed }}</tspan>
         </text>
       </g>
 
