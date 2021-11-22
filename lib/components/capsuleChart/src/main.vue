@@ -81,7 +81,8 @@ export default {
          * @type {Boolean}
          * @default showValue = false
          */
-        showValue: false
+        showValue: false,
+        hasMax: false
       },
 
       mergedConfig: null,
@@ -116,7 +117,7 @@ export default {
       )
     },
     calcCapsuleLengthAndLabelData() {
-      const { data } = this.mergedConfig
+      const { data, hasMax } = this.mergedConfig
 
       if (!data.length) return
 
@@ -124,10 +125,13 @@ export default {
 
       const maxValue = Math.max(...capsuleValue)
 
-      this.capsuleValue = capsuleValue
-
-      this.capsuleLength = capsuleValue.map(v => (maxValue ? v / maxValue : 0))
-
+      if (hasMax) {
+        this.capsuleLength = data.map(v => v.max ? v.value / v.max : 1)
+        this.capsuleValue = data.map(v => v.max ? v.value + '/' + v.max : v.value + '/' + v.value)
+      } else {
+        this.capsuleLength = capsuleValue.map(v => (maxValue ? v / maxValue : 0))
+        this.capsuleValue = capsuleValue
+      }
       const oneFifth = maxValue / 5
 
       const labelData = Array.from(
