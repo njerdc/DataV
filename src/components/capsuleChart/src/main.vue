@@ -3,7 +3,7 @@
     <template v-if="mergedConfig">
       <div class="label-column">
         <div v-for="item in mergedConfig.data" :key="item.name">{{ item.name }}</div>
-        <div>&nbsp;</div>
+        <div v-if="mergedConfig.showLabel">&nbsp;</div>
       </div>
 
       <div class="capsule-container">
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div class="unit-label">
+        <div class="unit-label" v-if="mergedConfig.showLabel">
           <div
             v-for="(label, index) in labelData"
             :key="label + index"
@@ -82,6 +82,7 @@ export default {
          * @default showValue = false
          */
         showValue: false,
+        showLabel: true,
         hasMax: false
       },
 
